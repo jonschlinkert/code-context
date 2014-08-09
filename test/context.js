@@ -11,17 +11,16 @@
 var parseContext = require('..');
 var should = require('should');
 var utils = require('./helpers/utils');
-var fs = require('fs');
 
 
 describe('extract context:', function () {
+  var a = utils.readFixture('script');
+  utils.writeActual(a, 'script');
 
-  it('should get function declaration name.', function () {
-    var actual = utils.fixture('script');
-    var len = actual.length;
-    // console.log(actual);
+  var b = utils.readFixture('cache');
+  utils.writeActual(b, 'cache');
 
-  });
+
 
   it('should extract function statement', function () {
     var ctx = parseContext('function app() {\n\n}')[0];
