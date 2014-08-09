@@ -27,6 +27,7 @@
   { begin: 27,
     type: 'function statement',
     name: 'Strings',
+    args: 'context',
     string: 'Strings()',
     original: 'function Strings(context) {' },
   { begin: 32,

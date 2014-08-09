@@ -20,6 +20,8 @@ describe('extract context:', function () {
   var b = utils.readFixture('cache');
   utils.writeActual(b, 'cache');
 
+  var c = utils.readFixture('assemble');
+  utils.writeActual(c, 'assemble');
 
 
   it('should extract function statement', function () {

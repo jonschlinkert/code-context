@@ -29,11 +29,12 @@ module.exports = function (str) {
         end: i
       });
     // function statement
-    } else if (/^function ([\w$]+) *\(/.exec(strict)) {
+    } else if (/^function ([\w$]+) *\((.*)\)/.exec(strict)) {
       context.push({
         begin: i,
         type: 'function statement',
         name: RegExp.$1,
+        args: RegExp.$2,
         string: RegExp.$1 + '()',
         original: strict
       });

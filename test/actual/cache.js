@@ -254,5 +254,6 @@
   { begin: 832,
     type: 'function statement',
     name: 'typeOf',
+    args: 'value',
     string: 'typeOf()',
     original: 'function typeOf(value) {' } ]
