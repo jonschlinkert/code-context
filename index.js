@@ -29,31 +29,33 @@ module.exports = function (str) {
         end: i
       });
     // function statement
-    } else if (/^function ([\w$]+) *\((.*)\)/.exec(strict)) {
+    } else if (/^function[ \t]([\w$]+)[ \t]*([\w\W]+)?/.exec(strict)) {
       context.push({
         begin: i,
         type: 'function statement',
         name: RegExp.$1,
-        args: RegExp.$2,
+        args: (RegExp.$2).split(/\W/g).filter(Boolean),
         string: RegExp.$1 + '()',
         original: strict
       });
     // function expression
-    } else if (/^var *([\w$]+)[ \t]*=[ \t]*function/.exec(strict)) {
+    } else if (/^var[ \t]*([\w$]+)[ \t]*=[ \t]*function([\w\W]+)?/.exec(strict)) {
       context.push({
         begin: i,
         type: 'function expression',
         name: RegExp.$1,
+        args: (RegExp.$2).split(/\W/g).filter(Boolean),
         string: RegExp.$1 + '()',
         original: strict
       });
     // prototype method
-    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*function/.exec(strict)) {
+    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*function([\w\W]+)?/.exec(strict)) {
       context.push({
         begin: i,
         type: 'prototype method',
         class: RegExp.$1,
         name: RegExp.$2,
+        args: (RegExp.$3).split(/\W/g).filter(Boolean),
         string: RegExp.$1 + '.prototype.' + RegExp.$2 + '()',
         original: strict
       });
@@ -90,7 +92,7 @@ module.exports = function (str) {
         original: strict
       });
     // declaration
-    } else if (/^var +([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(line)) {
+    } else if (/^var[ \t]+([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(line)) {
       context.push({
         begin: i,
         type: 'declaration',
