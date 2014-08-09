@@ -10,34 +10,42 @@
 
 var parseContext = require('..');
 var should = require('should');
+var utils = require('./helpers/utils');
 var fs = require('fs');
 
 
 describe('extract context:', function () {
+
+  it('should get function declaration name.', function () {
+    var actual = utils.fixture('script');
+    var len = actual.length;
+    // console.log(actual);
+
+  });
+
   it('should extract function statement', function () {
     var ctx = parseContext('function app() {\n\n}')[0];
-    ctx.type.should.equal('function');
+    ctx.type.should.equal('function statement');
     ctx.name.should.equal('app');
   });
 
-
   it('should extract function expression', function () {
     var ctx = parseContext('var app = function() {\n\n}')[0];
-    ctx.type.should.equal('function');
+    ctx.type.should.equal('function expression');
     ctx.name.should.equal('app');
   });
 
   it('should extract prototype method', function () {
     var ctx = parseContext('Template.prototype.get = function() {}')[0];
-    ctx.type.should.equal('method');
-    ctx.constructor.should.equal('Template');
+    ctx.type.should.equal('prototype method');
+    ctx.class.should.equal('Template');
     ctx.name.should.equal('get');
   });
 
   it('should extract prototype property', function () {
     var ctx = parseContext('Template.prototype.enabled = true;\nasdf')[0];
-    ctx.type.should.equal('property');
-    ctx.constructor.should.equal('Template');
+    ctx.type.should.equal('prototype property');
+    ctx.class.should.equal('Template');
     ctx.name.should.equal('enabled');
     ctx.value.should.equal('true');
   });

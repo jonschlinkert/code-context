@@ -13,72 +13,72 @@ module.exports = function (str) {
   var context = [];
 
   str.split(/\n/g).forEach(function(line, i) {
-    line = line.replace(/^\s+/, '');
+    var strict = line.replace(/^\s+/, '');
     i = i + 1;
 
     // Begin comment
-    if (/^\/\*/.exec(line)) {
+    if (/^\/\*/.exec(strict)) {
       context.push({
         type: 'comment',
         begin: i
       });
-    } else if (/^\*\//.exec(line)) {
+    } else if (/^\*\//.exec(strict)) {
     // End comment
       context.push({
         type: 'comment',
         end: i
       });
     // function statement
-    } else if (/^function ([\w$]+) *\(/.exec(line)) {
+    } else if (/^function ([\w$]+) *\(/.exec(strict)) {
       context.push({
         begin: i,
-        type: 'function',
+        type: 'function statement',
         name: RegExp.$1,
         string: RegExp.$1 + '()',
-        original: line
+        original: strict
       });
     // function expression
-    } else if (/^var *([\w$]+)[ \t]*=[ \t]*function/.exec(line)) {
+    } else if (/^var *([\w$]+)[ \t]*=[ \t]*function/.exec(strict)) {
       context.push({
         begin: i,
-        type: 'function',
+        type: 'function expression',
         name: RegExp.$1,
         string: RegExp.$1 + '()',
-        original: line
+        original: strict
       });
     // prototype method
-    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*function/.exec(line)) {
+    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*function/.exec(strict)) {
       context.push({
         begin: i,
-        type: 'method',
-        constructor: RegExp.$1,
+        type: 'prototype method',
+        class: RegExp.$1,
         name: RegExp.$2,
         string: RegExp.$1 + '.prototype.' + RegExp.$2 + '()',
-        original: line
+        original: strict
       });
     // prototype property
-    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(line)) {
+    } else if (/^([\w$]+)\.prototype\.([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(strict)) {
       context.push({
         begin: i,
-        type: 'property',
-        constructor: RegExp.$1,
+        type: 'prototype property',
+        class: RegExp.$1,
         name: RegExp.$2,
         value: RegExp.$3,
         string: RegExp.$1 + '.prototype.' + RegExp.$2,
-        original: line
+        original: strict
       });
     // method
-    } else if (/^([\w$.]+)\.([\w$]+)[ \t]*=[ \t]*function/.exec(line)) {
+    } else if (/^([\w$.]+)\.([\w$]+)[ \t]*=[ \t]*function/.exec(strict)) {
       context.push({
         begin: i,
         type: 'method',
         receiver: RegExp.$1,
         name: RegExp.$2,
         string: RegExp.$1 + '.' + RegExp.$2 + '()',
-        original: line
+        original: strict
       });
     // property
-    } else if (/^([\w$]+)\.([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(line)) {
+    } else if (/^([\w$]+)\.([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(strict)) {
       context.push({
         begin: i,
         type: 'property',
@@ -86,7 +86,7 @@ module.exports = function (str) {
         name: RegExp.$2,
         value: RegExp.$3,
         string: RegExp.$1 + '.' + RegExp.$2,
-        original: line
+        original: strict
       });
     // declaration
     } else if (/^var +([\w$]+)[ \t]*=[ \t]*([^\n;]+)/.exec(line)) {
@@ -96,7 +96,7 @@ module.exports = function (str) {
         name: RegExp.$1,
         value: RegExp.$2,
         string: RegExp.$1,
-        original: line
+        original: strict
       });
     }
   });
