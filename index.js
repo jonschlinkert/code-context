@@ -48,7 +48,12 @@ module.exports = function (str) {
 
     // Code comments
     if (/^\/\*/.exec(strict)) {
-      context.push(comments[i]);
+      if (i === 1) {
+        context.push(comments[0]);
+      } else {
+        context.push(comments[i]);
+      }
+
     // function statement
     } else if (/^function[ \t]([\w$]+)[ \t]*([\w\W]+)?/.exec(strict)) {
       context.push({
