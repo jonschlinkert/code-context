@@ -8,26 +8,47 @@
 
 'use strict';
 
+var lineCount = require('line-count');
+
+function extractComments(str) {
+  var match, o = {};
+  var line = 1;
+
+  while (match = (/\/\*\*([\s\S]*?)\*\//g).exec(str)) {
+    var start = str;
+
+    // add lines from before the comment
+    line += lineCount(start.substr(0, match.index)) - 1;
+
+    // Update the string
+    str = str.substr(match.index + match[1].length);
+
+    o[line] = {
+      type: 'comment',
+      comment: match[1],
+      begin: line,
+      end: line + lineCount(match[1]) - 1
+    };
+
+    // add lines from the comment itself
+    line += lineCount(start.substr(match.index, match[1].length)) - 1;
+  }
+  return o;
+}
+
 module.exports = function (str) {
   str = str.replace(/\r/g, '');
   var context = [];
+
+  var comments = extractComments(str);
 
   str.split(/\n/g).forEach(function(line, i) {
     var strict = line.replace(/^\s+/, '');
     i = i + 1;
 
-    // Begin comment
+    // Code comments
     if (/^\/\*/.exec(strict)) {
-      context.push({
-        type: 'comment',
-        begin: i
-      });
-    } else if (/^\*\//.exec(strict)) {
-    // End comment
-      context.push({
-        type: 'comment',
-        end: i
-      });
+      context.push(comments[i]);
     // function statement
     } else if (/^function[ \t]([\w$]+)[ \t]*([\w\W]+)?/.exec(strict)) {
       context.push({
@@ -99,20 +120,10 @@ module.exports = function (str) {
         name: RegExp.$1,
         value: RegExp.$2,
         string: RegExp.$1,
-        original: strict
+        original: line
       });
     }
   });
 
-  var len = context.length;
-
-  return context.filter(function(obj, i) {
-    if (obj.type === 'comment' && obj.begin && i < len) {
-      obj.end = context[i + 1].end;
-    }
-    if (obj.end && !obj.begin) {
-      return false;
-    }
-    return obj;
-  });
+  return context.filter(Boolean);
 };
