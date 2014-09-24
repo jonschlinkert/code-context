@@ -8,9 +8,7 @@
 
 'use strict';
 
-// var extractComments = require('extract-comments');
-var extractComments = require('./ext');
-
+var extractComments = require('extract-comments');
 
 module.exports = function (str) {
   str = str.replace(/\r/g, '');
@@ -105,7 +103,6 @@ module.exports = function (str) {
       });
     }
   });
-  console.log(context)
 
   return context.filter(Boolean);
 };

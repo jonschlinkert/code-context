@@ -7,6 +7,6 @@ var parsed = function(filepath) {
   return context(str);
 };
 
-var p = util.inspect(parsed('test/fixtures/a.js'), null, 10);
+var p = util.inspect(parsed('test/fixtures/b.js'), null, 10);
 
 console.log(p)
