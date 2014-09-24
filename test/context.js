@@ -14,14 +14,14 @@ var utils = require('./helpers/utils');
 
 
 describe('extract context:', function () {
-  var a = utils.readFixture('script');
-  utils.writeActual(a, 'script');
+  var a = utils.readFixture('a');
+  utils.writeActual(a, 'a');
 
-  var b = utils.readFixture('cache');
-  utils.writeActual(b, 'cache');
+  var b = utils.readFixture('b');
+  utils.writeActual(b, 'b');
 
-  var c = utils.readFixture('assemble');
-  utils.writeActual(c, 'assemble');
+  var c = utils.readFixture('c');
+  utils.writeActual(c, 'c');
 
 
   it('should extract function statement', function () {
