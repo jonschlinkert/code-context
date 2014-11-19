@@ -1,7 +1,7 @@
 {
   "name": "code-context",
-  "description": "Parses the context from a string of javascript to determine the context for functions, variables and comments based on its code.",
-  "version": "0.2.3",
+  "description": "Parses a string of javascript to determine the context for functions, variables and comments based on the code that follows.",
+  "version": "0.3.0",
   "homepage": "https://github.com/jonschlinkert/code-context",
   "author": {
     "name": "Jon Schlinkert",
@@ -48,8 +48,7 @@
   "devDependencies": {
     "fs-utils": "^0.4.3",
     "mocha": "*",
-    "should": "^4.0.4",
-    "verb": ">= 0.2.6"
+    "should": "^4.0.4"
   },
   "dependencies": {
     "extract-comments": "^0.4.1"
