@@ -36,6 +36,18 @@ describe('extract context:', function () {
     ctx.name.should.equal('app');
   });
 
+  it('should extract a `module.exports` function expression', function () {
+    var ctx = parseContext('module.exports = function foo(a, b, c) {\n\n}')[0];
+    ctx.type.should.equal('function expression');
+    ctx.name.should.equal('foo');
+  });
+
+  it('should extract a `module.exports` method', function () {
+    var ctx = parseContext('module.exports = function() {\n\n}')[0];
+    ctx.type.should.equal('method');
+    ctx.name.should.equal('');
+  });
+
   it('should extract prototype method', function () {
     var ctx = parseContext('Template.prototype.get = function() {}')[0];
     ctx.type.should.equal('prototype method');

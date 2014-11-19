@@ -13,30 +13,30 @@ var should = require('should');
 var utils = require('./helpers/utils');
 
 
-describe('context args:', function () {
+describe('context params:', function () {
 
-  it('should extract function statement args', function () {
+  it('should extract function statement params', function () {
     var ctx = parseContext('function app(a, b) {\n\n}')[0];
     ctx.type.should.equal('function statement');
-    ctx.args.should.eql(['a', 'b']);
+    ctx.params.should.eql(['a', 'b']);
   });
 
-  it('should extract function expression args', function () {
+  it('should extract function expression params', function () {
     var ctx = parseContext('var app = function(foo, bar) {\n\n}')[0];
     ctx.type.should.equal('function expression');
-    ctx.args.should.eql(['foo', 'bar']);
+    ctx.params.should.eql(['foo', 'bar']);
   });
 
-  it('should extract function expression args', function () {
+  it('should extract function expression params', function () {
     var ctx = parseContext('var app=function(foo,bar) {\n\n}')[0];
     ctx.type.should.equal('function expression');
-    ctx.args.should.eql(['foo', 'bar']);
+    ctx.params.should.eql(['foo', 'bar']);
   });
 
-  it('should extract prototype method args', function () {
+  it('should extract prototype method params', function () {
     var ctx = parseContext('Template.prototype.get = function(key, value, options) {}')[0];
     ctx.type.should.equal('prototype method');
     ctx.class.should.equal('Template');
-    ctx.args.should.eql(['key', 'value', 'options']);
+    ctx.params.should.eql(['key', 'value', 'options']);
   });
 });
