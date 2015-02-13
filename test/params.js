@@ -1,7 +1,7 @@
 /*!
  * code-context <https://github.com/jonschlinkert/code-context>
  *
- * Copyright (c) 2014 Jon Schlinkert, contributors.
+ * Copyright (c) 2014-2015 Jon Schlinkert, contributors.
  * Regex sourced from https://github.com/visionmedia/dox
  * Licensed under the MIT License
  */

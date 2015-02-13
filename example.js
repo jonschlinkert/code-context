@@ -8,5 +8,4 @@ var parsed = function(filepath) {
 };
 
 var p = util.inspect(parsed('test/fixtures/b.js'), null, 10);
-
 console.log(p)
