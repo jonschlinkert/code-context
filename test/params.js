@@ -1,9 +1,8 @@
 /*!
  * code-context <https://github.com/jonschlinkert/code-context>
  *
- * Copyright (c) 2014-2015 Jon Schlinkert, contributors.
- * Regex sourced from https://github.com/visionmedia/dox
- * Licensed under the MIT License
+ * Copyright (c) 2014-2015, Jon Schlinkert.
+ * Licensed under the MIT License.
  */
 
 'use strict';
@@ -14,7 +13,6 @@ var utils = require('./helpers/utils');
 
 
 describe('context params:', function () {
-
   it('should extract function statement params', function () {
     var ctx = parseContext('function app(a, b) {\n\n}')[0];
     ctx.type.should.equal('function statement');
