@@ -16,9 +16,10 @@ module.exports = function (str, fn) {
 
   var lines = str.split(/[\r\n]/);
   var len = lines.length, res = [], i = -1, j = 0;
+  var num = 1;
 
   while (++i < len) {
-    var o = parse(lines[i].replace(/^\s+/, ''), i);
+    var o = parse(lines[i].replace(/^\s+/, ''), num++);
     if (!o) continue;
 
     if (typeof fn === 'function') {
