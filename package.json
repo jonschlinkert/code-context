@@ -1,7 +1,7 @@
 {
   "name": "code-context",
   "description": "Parse a string of javascript to determine the context for functions, variables and comments based on the code that follows.",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "homepage": "https://github.com/jonschlinkert/code-context",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/code-context",
