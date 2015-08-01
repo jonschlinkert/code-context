@@ -15,10 +15,10 @@ module.exports = function (str, fn) {
   }
 
   var lines = str.split(/[\r\n]/);
-  var len = lines.length, res = [], i = 0, j = 0;
+  var len = lines.length, res = [], i = -1, j = 0;
 
-  while (len--) {
-    var o = parse(lines[i++].replace(/^\s+/, ''), i);
+  while (++i < len) {
+    var o = parse(lines[i].replace(/^\s+/, ''), i);
     if (!o) continue;
 
     if (typeof fn === 'function') {
